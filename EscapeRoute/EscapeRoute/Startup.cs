@@ -1,3 +1,6 @@
+using Azure.Storage.Blobs;
+using Business;
+using DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +29,10 @@ namespace EscapeRoute
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(ac => ac.AddPolicy("any", ap => ap.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+            services.AddSingleton(x=> new BlobServiceClient(Configuration.GetValue<string>("AzureBlobString")));
+            services.AddScoped(typeof(IDataDAL), typeof(DAL.CoordinateRecDAL));
+            services.AddScoped(typeof(IDataBLL), typeof(Business.CoordinateRecBLL));
+            services.AddScoped(typeof(IBlobBLL),typeof(AcquireFile));
             services.AddControllers();
         }
 

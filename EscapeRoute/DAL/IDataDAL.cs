@@ -6,6 +6,8 @@ namespace DAL
 {
     public interface IDataDAL
     {
-        public void RecordToCSV(string userId,string sceneName, List<MyVector3> userCoord);
+        public int RecordToCSV(string userId,string sceneName, SendData[] userCoords);
+        
+        public int RecordToBlobCSV(string userId, string sceneName, SendData[] userCoords);
     }
 }

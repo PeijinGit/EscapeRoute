@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using DAL;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,9 +8,37 @@ namespace Business
 {
     public class CoordinateRecBLL : IDataBLL
     {
-        public void RecordToCSV(ReceiveModel receiveModel)
+        IDataDAL dataDAL;
+
+        public CoordinateRecBLL(IDataDAL dataDAL) 
         {
-            throw new NotImplementedException();
+            this.dataDAL = dataDAL;
+        }
+
+        public int RecordToCSV(ReceiveModel receiveModel)
+        {
+            int returnCode = -1;
+            string uuid = receiveModel.Uuid;
+            string sceneName = receiveModel.Scene;
+            SendData[] sendDatas = receiveModel.SendData;
+            if (uuid != null && sceneName!=null && sendDatas!=null) 
+            {
+                returnCode = dataDAL.RecordToCSV(uuid, sceneName, sendDatas);
+            }
+            return returnCode;
+        }
+
+        public int RecordToBlobCSV(ReceiveModel receiveModel)
+        {
+            int returnCode = -1;
+            string uuid = receiveModel.Uuid;
+            string sceneName = receiveModel.Scene;
+            SendData[] sendDatas = receiveModel.SendData;
+            if (uuid != null && sceneName != null && sendDatas != null)
+            {
+                returnCode = dataDAL.RecordToBlobCSV(uuid, sceneName, sendDatas);
+            }
+            return returnCode;
         }
     }
 }

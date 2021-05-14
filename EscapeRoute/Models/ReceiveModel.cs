@@ -4,9 +4,19 @@ using System.Text;
 
 namespace Models
 {
+
     public class ReceiveModel
     {
-        string UserIdentity { get; set; }
-        List<List<MyVector3>> UserCoor { get; set; }
+        public string Uuid { get; set; }
+        public string Scene { get; set; }
+        public SendData[] SendData { get; set; }
+    }
+
+    public class SendData
+    {
+        public int seq { get; set; }
+        public float x { get; set; }
+        public float y { get; set; }
+        public float z { get; set; }
     }
 }

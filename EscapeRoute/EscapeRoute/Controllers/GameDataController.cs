@@ -5,6 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Models;
+using System.Text.Json;
+using Business;
+using System.IO;
+using System.Reflection;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace EscapeRoute.Controllers
 {
@@ -13,6 +18,12 @@ namespace EscapeRoute.Controllers
     [Route("[controller]/[action]")]
     public class GameDataController : ControllerBase
     {
+        IDataBLL dataBLL;
+
+        public GameDataController(IDataBLL dataBLL) 
+        {
+            this.dataBLL = dataBLL;
+        }
 
         [HttpGet]
         public string Welcome()
@@ -21,15 +32,47 @@ namespace EscapeRoute.Controllers
         }
 
         [HttpPost]
-        public ReceiveModel AcquireCoordinates([FromBody]ReceiveModel receiveModel) 
+        public ResponseModel AcquireCoordinates(ReceiveModel receiveModel)
         {
-            return receiveModel;
+
+           int returnCode = dataBLL.RecordToCSV(receiveModel);
+            ResponseModel responseModel = new ResponseModel();
+            if (returnCode == 100)
+            {
+                responseModel.Status = 235;
+                responseModel.Msg = "Store Success";
+                return responseModel;
+            }
+            else 
+            {
+                responseModel.Status = -100;
+                responseModel.Msg = "Store Fail";
+                return responseModel;
+            }
         }
 
+
         [HttpPost]
-        public ResponseModel TestMethod([FromBody] string st)
+        public ResponseModel AcquireCoordinatesBlob(ReceiveModel receiveModel)
         {
-            return null;
+
+            int returnCode = dataBLL.RecordToBlobCSV(receiveModel);
+            ResponseModel responseModel = new ResponseModel();
+            if (returnCode == 100)
+            {
+                responseModel.Status = 235;
+                responseModel.Msg = "Store Success";
+                return responseModel;
+            }
+            else
+            {
+                responseModel.Status = -100;
+                responseModel.Msg = "Store Fail";
+                return responseModel;
+            }
         }
     }
+
+    
+
 }

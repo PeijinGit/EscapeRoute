@@ -6,17 +6,18 @@ namespace Models
 {
     public class MyVector3
     {
+        public int Seq { get; set; }
         //
         // Summary:
         //     X component of the vector.
-        public float x;
+        public float X { get; set; }
         //
         // Summary:
         //     Y component of the vector.
-        public float y;
+        public float Y { get; set; }
         //
         // Summary:
         //     Z component of the vector.
-        public float z;
+        public float Z { get; set; }
     }
 }
