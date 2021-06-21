@@ -9,7 +9,7 @@ using Business;
 using System.IO;
 using System.Reflection;
 
-namespace EscapeRoute.Controllers
+namespace EscapeRouteAPI.Controllers
 {
     [EnableCors("any")]
     [ApiController]

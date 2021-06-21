@@ -20,7 +20,7 @@ namespace EscapeRouteAPI.Controllers
         }
 
         [HttpPost]
-        public ResponseModel AcquireSurveyP1(ReceiveModel receiveModel)
+        public ResponseModel AcquireSurveyP1()
         {
 
             return null;
