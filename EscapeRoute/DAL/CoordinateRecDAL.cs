@@ -23,38 +23,15 @@ namespace DAL
             int passCode = -1;
             string FileName = "Temp/" + "Recording" + ".csv";
 
-            //try
-            //{
-                if (!File.Exists(FileName))
+            if (!File.Exists(FileName))
+            {
+                using (FileStream fs = new FileStream(FileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {
-                    //if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "log\\" + A102))
-                    //{
-                    //    Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "log\\" + A102);
-                    //}
-
-                    using (FileStream fs = new FileStream(FileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                    using (StreamWriter sw = new StreamWriter(fs, Encoding.Default))
                     {
-                        using (StreamWriter sw = new StreamWriter(fs, Encoding.Default))
-                        {
-                            string dataHead = string.Empty;
-                            dataHead = "UserID,Scene,X,Y,Z,Time";
-                            sw.WriteLine(dataHead);
-                            StringBuilder csvStr = new StringBuilder();
-                            for (int i = 0; i < userCoords.Length; i++)
-                            {
-                                csvStr.Clear();
-                                csvStr.Append(string.Format("{0},{1},{2},{3},{4},{5}", userId, sceneName, userCoords[i].x, userCoords[i].y, userCoords[i].z, userCoords[i].seq));
-                                sw.WriteLine(csvStr);
-                            }
-                            fs.Flush();
-                            passCode = 100;
-                        }
-                    }
-                }
-                else
-                {
-                    using (StreamWriter sw = new StreamWriter(FileName, true, Encoding.Default))
-                    {
+                        string dataHead = string.Empty;
+                        dataHead = "UserID,Scene,X,Y,Z,Time";
+                        sw.WriteLine(dataHead);
                         StringBuilder csvStr = new StringBuilder();
                         for (int i = 0; i < userCoords.Length; i++)
                         {
@@ -62,43 +39,28 @@ namespace DAL
                             csvStr.Append(string.Format("{0},{1},{2},{3},{4},{5}", userId, sceneName, userCoords[i].x, userCoords[i].y, userCoords[i].z, userCoords[i].seq));
                             sw.WriteLine(csvStr);
                         }
+                        fs.Flush();
                         passCode = 100;
                     }
-
                 }
-            //}
-            //catch (Exception e)
-            //{
-               
-            //}
-            return passCode;
-        }
-
-        public int RecordToBlobCSV(string userId, string sceneName, SendData[] userCoords) 
-        {
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=storageaccounthpjgrafa3;AccountKey=xrywh75yRLfhSY+3S1k/nLDqpQvl+3zHJvi2N0TQqCU+gLuYQqZWOpISd4oS0oOfP1lWqlZ1UtQF+wOVtefDCw==;EndpointSuffix=core.windows.net";
-            int passCode = -1;
-            var appendBlobClient = new AppendBlobClient(connectionString, "newblob","Recording.csv");
-            using (MemoryStream ms = new MemoryStream()) 
+            }
+            else
             {
-                using (StreamWriter sw = new StreamWriter(ms, Encoding.Default))
+                using (StreamWriter sw = new StreamWriter(FileName, true, Encoding.Default))
                 {
-                    string dataHead = string.Empty;
-                    dataHead = "UserID,Scene,X,Y,Z,Time";
-                    sw.WriteLine(dataHead);
                     StringBuilder csvStr = new StringBuilder();
                     for (int i = 0; i < userCoords.Length; i++)
                     {
                         csvStr.Clear();
                         csvStr.Append(string.Format("{0},{1},{2},{3},{4},{5}", userId, sceneName, userCoords[i].x, userCoords[i].y, userCoords[i].z, userCoords[i].seq));
                         sw.WriteLine(csvStr);
-                        appendBlobClient.AppendBlock(ms);
                     }
-                    ms.Flush();
                     passCode = 100;
                 }
+
             }
-            return 0;
+            return passCode;
         }
+
     }
 }
