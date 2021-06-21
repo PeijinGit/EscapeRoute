@@ -28,17 +28,6 @@ namespace Business
             return returnCode;
         }
 
-        public int RecordToBlobCSV(ReceiveModel receiveModel)
-        {
-            int returnCode = -1;
-            string uuid = receiveModel.Uuid;
-            string sceneName = receiveModel.Scene;
-            SendData[] sendDatas = receiveModel.SendData;
-            if (uuid != null && sceneName != null && sendDatas != null)
-            {
-                returnCode = dataDAL.RecordToBlobCSV(uuid, sceneName, sendDatas);
-            }
-            return returnCode;
-        }
+        
     }
 }
