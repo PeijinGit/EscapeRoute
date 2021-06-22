@@ -42,26 +42,5 @@ namespace Models
             surveyHead = surveyHead.TrimEnd(',').Replace(" ","_");
             return surveyHead;
         }
-        //public string usedVirtualReality { get; }
-        //public string weight { get;}
-
-        //public string Ethnicgroup { get;}
-        //public string Q1 { get; }
-        //public string Q2 { get;}
-        //public string Q3 { get;}
-        //public string Age { get;}
-        //public string Gender { get; }
-        //public string Height { get;}
-        //public string Que1 { get; }
-        //public string Que2 { get; }
-        //public string Que3 { get; }
-        //public string Que4 { get; }
-        //public string Que5 { get; }
-        //public string Que6 { get; }
-        //public string Que7 { get; }
-        //public string UsedVirtualReality { get;}
-        //public string Weight { get;}
-
-
     }
 }

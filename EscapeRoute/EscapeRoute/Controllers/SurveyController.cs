@@ -48,5 +48,26 @@ namespace EscapeRouteAPI.Controllers
                 return responseModel;
             }
         }
+
+        [HttpPost]
+        public ResponseModel AcquireSurveyP2(ReceivedSurveyInfo receivedSurveyInfo)
+        {
+            int returnCode = _surveyBLL.RecordToPreCSV(receivedSurveyInfo);
+
+
+            ResponseModel responseModel = new ResponseModel();
+            if (returnCode == 100)
+            {
+                responseModel.Status = 235;
+                responseModel.Msg = "Store Success";
+                return responseModel;
+            }
+            else
+            {
+                responseModel.Status = -100;
+                responseModel.Msg = "Store Fail";
+                return responseModel;
+            }
+        }
     }
 }

@@ -26,7 +26,6 @@ namespace DAL
                     {
                         string dataHead = string.Empty;
                         dataHead = new PreSurvey().ToString();
-                        //dataHead = "a,b,c,d,e,f,g";
                         sw.WriteLine(dataHead);
                         StringBuilder csvStr = new StringBuilder();
                         csvStr.Clear();
