@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Models
 {
-    public class ReceivedPreSruvey
+    public class ReceivedPreSurvey
     {
         public string Ethnicgroup { get; set; }
         public string Q1 { get; set; }
@@ -20,7 +20,7 @@ namespace Models
         public int que5 { get; set; }
         public int que6 { get; set; }
         public int que7 { get; set; }
-        public string usedVirtualReality { get; set; }
+        public string Q4 { get; set; }
         public int weight { get; set; }
     }
 }

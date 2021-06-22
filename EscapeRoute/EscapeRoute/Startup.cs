@@ -32,6 +32,8 @@ namespace EscapeRoute
             services.AddSingleton(x=> new BlobServiceClient(Configuration.GetValue<string>("AzureBlobString")));
             services.AddScoped(typeof(IDataDAL), typeof(DAL.CoordinateRecDAL));
             services.AddScoped(typeof(IDataBLL), typeof(Business.CoordinateRecBLL));
+            services.AddScoped(typeof(ISurveyDAL), typeof(DAL.SurveyRecDAL));
+            services.AddScoped(typeof(ISurveyBLL), typeof(Business.SurveyRecBLL));
             services.AddControllers();
         }
 
