@@ -16,17 +16,29 @@ namespace Business
             this.surveyDAL = surveyDAL;
         }
 
-        public int RecordToPostCSV(ReceivedSurveyInfo receivedSurveyInfo)
+        public int PlayerSurveyCheck(string playerUuid)
         {
-            throw new NotImplementedException();
+            int passCode = surveyDAL.PlayerSurveyCheck(playerUuid);
+
+            return passCode;
+        }
+
+        public int RecordToPostCSV(ReceivedPostSurveyInfo receivedSurveyInfo)
+        {
+            int passCode = -100;
+            if (receivedSurveyInfo.userId != "" || receivedSurveyInfo.userId != null)
+                passCode = surveyDAL.RecordToPostCSV(receivedSurveyInfo.userId, receivedSurveyInfo.ReceivedPostSurvey);
+
+            return passCode;
         }
 
         public int RecordToPreCSV(ReceivedSurveyInfo receivedSurveyInfo)
         {
-            if (receivedSurveyInfo.userId == "")
-                receivedSurveyInfo.userId = Guid.NewGuid().ToString("N");
-            
-            int passCode = surveyDAL.RecordToPreCSV(receivedSurveyInfo.userId, receivedSurveyInfo.receivedPreSurvey);
+            int passCode = -100;
+            if (receivedSurveyInfo.userId != "" || receivedSurveyInfo.userId != null)
+                //receivedSurveyInfo.userId = Guid.NewGuid().ToString("N");
+                 passCode = surveyDAL.RecordToPreCSV(receivedSurveyInfo.userId, receivedSurveyInfo.receivedPreSurvey);
+
             return passCode;
         }
     }

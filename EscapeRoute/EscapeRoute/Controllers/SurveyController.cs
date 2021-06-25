@@ -28,44 +28,87 @@ namespace EscapeRouteAPI.Controllers
             return "SurveyController Start Welcome!";
         }
 
-        [HttpPost]
-        public ResponseModel AcquireSurveyP1(ReceivedSurveyInfo receivedSurveyInfo)
+        [HttpGet]
+        public ResponseModel PlayerCheck(string playerUuid)
         {
-            int returnCode = _surveyBLL.RecordToPreCSV(receivedSurveyInfo);
-
-
             ResponseModel responseModel = new ResponseModel();
-            if (returnCode == 100)
+            if (playerUuid != null)
             {
-                responseModel.Status = 235;
-                responseModel.Msg = "Store Success";
-                return responseModel;
+                int returnCode = _surveyBLL.PlayerSurveyCheck(playerUuid);
+
+                if (returnCode > 0)
+                {
+                    responseModel.Status = 235;
+                    responseModel.Msg = "Survey Completed";
+                    return responseModel;
+                }
+                else
+                {
+                    responseModel.Status = -100;
+                    responseModel.Msg = "No Record!";
+                    return responseModel;
+                }
             }
             else
             {
                 responseModel.Status = -100;
-                responseModel.Msg = "Store Fail";
+                responseModel.Msg = "No ID received!";
                 return responseModel;
             }
         }
 
         [HttpPost]
-        public ResponseModel AcquireSurveyP2(ReceivedSurveyInfo receivedSurveyInfo)
+        public ResponseModel AcquireSurveyP1(ReceivedSurveyInfo receivedSurveyInfo)
         {
-            int returnCode = _surveyBLL.RecordToPreCSV(receivedSurveyInfo);
-
-
             ResponseModel responseModel = new ResponseModel();
-            if (returnCode == 100)
+            if (receivedSurveyInfo != null)
             {
-                responseModel.Status = 235;
-                responseModel.Msg = "Store Success";
-                return responseModel;
+                int returnCode = _surveyBLL.RecordToPreCSV(receivedSurveyInfo);
+                if (returnCode == 100)
+                {
+                    responseModel.Status = 235;
+                    responseModel.Msg = "Store Success";
+                    return responseModel;
+                }
+                else
+                {
+                    responseModel.Status = -100;
+                    responseModel.Msg = "Store Fail";
+                    return responseModel;
+                }
             }
             else
             {
                 responseModel.Status = -100;
-                responseModel.Msg = "Store Fail";
+                responseModel.Msg = "No data received";
+                return responseModel;
+            }
+        }
+
+        [HttpPost]
+        public ResponseModel AcquireSurveyP2(ReceivedPostSurveyInfo receivedSurveyInfo)
+        {
+            ResponseModel responseModel = new ResponseModel();
+            if (receivedSurveyInfo != null)
+            {
+                int returnCode = _surveyBLL.RecordToPostCSV(receivedSurveyInfo);
+                if (returnCode == 100)
+                {
+                    responseModel.Status = 235;
+                    responseModel.Msg = "Store Success";
+                    return responseModel;
+                }
+                else
+                {
+                    responseModel.Status = -100;
+                    responseModel.Msg = "Store Fail";
+                    return responseModel;
+                }
+            }
+            else
+            {
+                responseModel.Status = -100;
+                responseModel.Msg = "No data received";
                 return responseModel;
             }
         }

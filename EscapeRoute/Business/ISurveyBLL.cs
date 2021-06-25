@@ -9,6 +9,8 @@ namespace Business
     public interface ISurveyBLL
     {
         public int RecordToPreCSV(ReceivedSurveyInfo receivedSurveyInfo);
-        public int RecordToPostCSV(ReceivedSurveyInfo receivedSurveyInfo);
+        public int RecordToPostCSV(ReceivedPostSurveyInfo receivedSurveyInfo);
+
+        public int PlayerSurveyCheck(string playerUuid);
     }
 }

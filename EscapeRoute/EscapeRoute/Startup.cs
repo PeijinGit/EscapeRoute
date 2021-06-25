@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,7 @@ namespace EscapeRoute
         {
             services.AddCors(ac => ac.AddPolicy("any", ap => ap.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
             services.AddSingleton(x=> new BlobServiceClient(Configuration.GetValue<string>("AzureBlobString")));
+            services.Configure<AppSettingModels>(Configuration.GetSection("ConnectionStrings"));
             services.AddScoped(typeof(IDataDAL), typeof(DAL.CoordinateRecDAL));
             services.AddScoped(typeof(IDataBLL), typeof(Business.CoordinateRecBLL));
             services.AddScoped(typeof(ISurveyDAL), typeof(DAL.SurveyRecDAL));
