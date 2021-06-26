@@ -19,7 +19,7 @@ namespace Models
         private string weight = "Weight";
         private string height ="Height" ;
         private string que1 = "I am confident that I am able to effectively deal with a fire emergency";
-        private string que2 = "Thanks to my resources, I know how to manage in a fire emergency";
+        private string que2 = "Thanks to my resources I know how to manage in a fire emergency";
         private string que3 = "I would be able to deal with a fire emergency even if I find flame and smoke along the way";
         private string que4 = "I would be able to deal with a fire emergency even if I find objects that may harm me along the way";
         private string que5 = "The consequences of a fire emergency on my safety would be severe";
