@@ -51,7 +51,7 @@ namespace EscapeRoute
 
             app.UseRouting();
 
-            app.UseCors();
+            app.UseCors("any");
 
             app.UseAuthorization();
 
