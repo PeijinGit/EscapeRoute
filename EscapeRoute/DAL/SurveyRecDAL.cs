@@ -15,7 +15,7 @@ namespace DAL
         {
         }
 
-        public int RecordToPostCSV(string userID, ReceivedPostSurvey receivedPreSurvey)
+        public int RecordToPostCSV(string userID, ReceivedPostSurvey receivedPostSurvey)
         {
             int passCode = -1;
             string FileName = "Temp/" + "PostSurvey" + ".csv";
@@ -32,7 +32,7 @@ namespace DAL
                         sw.WriteLine(dataHead);
                         StringBuilder csvStr = new StringBuilder();
                         csvStr.Clear();
-                        csvStr.Append(PostStringAppender(userID, receivedPreSurvey));
+                        csvStr.Append(PostStringAppender(userID, receivedPostSurvey));
                         sw.WriteLine(csvStr);
                         fs.Flush();
                         passCode = 100;
@@ -45,7 +45,7 @@ namespace DAL
                 {
                     StringBuilder csvStr = new StringBuilder();
                     csvStr.Clear();
-                    csvStr.Append(PostStringAppender(userID, receivedPreSurvey)); ;
+                    csvStr.Append(PostStringAppender(userID, receivedPostSurvey)); ;
                     sw.WriteLine(csvStr);
                     passCode = 100;
                 }
@@ -196,8 +196,6 @@ namespace DAL
                                     );
             return appended;
         }
-
-
     }
 }
 
