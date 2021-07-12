@@ -36,8 +36,8 @@ namespace EscapeRouteAPI.Controllers
         [HttpGet]
         public IActionResult AfterSurveyAcquire()
         {
-            var fileStream = _fileBLL.PreSurveyAcquire();
-            string fileName = "AfterSurvey.csv";
+            var fileStream = _fileBLL.AfterSurveyAcquire();
+            string fileName = "PostSurvey.csv";
             return ExtractFile(fileStream, fileName);
         }
 
